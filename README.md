@@ -1,11 +1,12 @@
 ### This is the
-### This is the place for
+### This is the place for my works and projects in data analysis using different Business Intelligence tools and platforms.
 
-Some basic Git commands are:
+My works are focused on the following platforms:
 ```
-git status
-git add
-git commit
+Excel
+Python
+MS SQL Server
+Spark
+Tableau
 ```
 
-![test](https://user-images.githubusercontent.com/37023565/47379898-29556400-d6ca-11e8-864d-04065c1f6fc7.jpg)

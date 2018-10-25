@@ -19,7 +19,7 @@
   FROM FactInternetSales
   ```
   - Configure the parameter properties to be viewed by filtering
-    - e.g. Year Parameter Properties: set the default values as MaxYear
+  - e.g. Year Parameter Properties: set the default values as MaxYear
   - Add Month Parameter as the same way
 
 

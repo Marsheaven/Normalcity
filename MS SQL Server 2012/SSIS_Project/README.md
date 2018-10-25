@@ -14,7 +14,6 @@
 - Run the packages
 
 ### Points
-```
 - Use a Lookup Transformation to insert/update Dimension table data
 - "Load Product" package
   - Each dimension should lookup for its parent considering structure of the DataWarehouse DB, except for the Product Category Dimension
@@ -23,6 +22,5 @@
   - Use SCD(Slowly Changing Dimension) transformation
   - Classify columns as one of the fixed attributes, historical attributes, and changing attributes according to change frequency
 - Assign CurrentTime variable and set the update time when the CurrentTime is Last Extracted time + 30
-```
 
 

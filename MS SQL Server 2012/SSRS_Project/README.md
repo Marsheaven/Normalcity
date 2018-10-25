@@ -1,4 +1,4 @@
-## SSIS Project
+## SSRS Project
 ### Compared to SSIS work, creating a report is simple and easy. 
 ### First, use SSRS Report Wizard and select data source as embedded dataset, writing SQL Query. Then, a tabular report is created. On the Design tab of the report, edit the report accordingly
 

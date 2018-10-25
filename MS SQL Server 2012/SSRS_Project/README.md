@@ -1,11 +1,14 @@
-### Title
-### test
+## SSIS Project
+### Compared to SSIS work, creating a report is simple and easy. 
+### First, use SSRS Report Wizard and select data source as embedded dataset, writing SQL Query. Then, a tabular report is created. On the Design tab of the report, edit the report accordingly
 
-Some basic Git commands are:
-```
-git status
-git add
-git commit
-```
+### Points
+- To create a group, drag fields from the Report Data pane to the Grouping pane. 
+  - Add parent/child group in the Grouping pane (e.g. Add Year in the Column Grouping and add Monthe as a child group)
+  - For "drilldown", set the properties of the child group as to be toggled by its parent group
+- To apply parameter filters, create new parameters(Year, MaxYear) using Query Designer in the dataset, in the Report Data pane.
+  - Configure the parameter properties to be viewed by filtering
+   e.g. Year Parameter Properties: set the default values as MaxYear
+  - Add Month Parameter as the same way
 
-![test](https://user-images.githubusercontent.com/37023565/47379898-29556400-d6ca-11e8-864d-04065c1f6fc7.jpg)
+

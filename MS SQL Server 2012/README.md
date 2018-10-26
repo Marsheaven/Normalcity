@@ -9,4 +9,4 @@
 
 The T-SQL Queries include Key SQL query examples and my practice work using the Microsoft SQL Server Management Studio.
 
-![test](https://user-images.githubusercontent.com/37023565/47379898-29556400-d6ca-11e8-864d-04065c1f6fc7.jpg)
+![test](https://user-images.githubusercontent.com/37023565/47589963-ccabb080-d938-11e8-8bbf-d7f695fa4b7f.jpg)

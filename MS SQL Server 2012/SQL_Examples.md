@@ -1,4 +1,4 @@
-## SQL QUERY EXAMPLES
+### SQL QUERY EXAMPLES
 
 - JOIN
 - WHERE
@@ -14,7 +14,7 @@
 - PROCEDURE
 - PIVOT, UNPIVOT
 
-### 1. JOIN
+#### 1. JOIN
 #### Join 3 Tables
 ```
 SELECT c.custid, c.companyname, o.orderid, o.orderdate, od.productid, od.qty
@@ -29,7 +29,7 @@ SELECT e.empid ,e.lastname as empname,e.title,e.mgrid, m.lastname as mgrname
   LEFT OUTER JOIN HR.Employees AS m
   ON e.mgrid=m.empid;
 ```
-### 2. WHERE
+#### 2. WHERE
 ```
 SELECT orderid, custid, orderdate
 FROM Sales.Orders
@@ -41,7 +41,7 @@ from Sales.Orders
 WHERE empid = 3 and year(orderdate) = '2006'
 Order by custid;
 ```
-### 3. ORDER BY/RANK
+#### 3. ORDER BY/RANK
 #### Order By to Sort Results
 ```
 SELECT orderid, custid, YEAR(orderdate) AS orderyear
@@ -54,7 +54,7 @@ SELECT TOP(5) productid, productname, unitprice,
 FROM Production.Products
 ORDER BY rankbyprice;
 ```
-### 4. GROUP BY (Aggregates)/HAVING/COUNT
+#### 4. GROUP BY (Aggregates)/HAVING/COUNT
 ```
 SELECT empid, YEAR(orderdate) AS orderyear,
 COUNT(custid) AS all_custs,
@@ -77,7 +77,7 @@ GROUP BY p.productid
 HAVING COUNT(*) >= 10
 ORDER BY cnt DESC;
 ```
-### 5. STRING FUNCTIONS, LIKE, COALESCE
+#### 5. STRING FUNCTIONS, LIKE, COALESCE
 #### String Functions
 ```
 SELECT SUBSTRING('Microsoft SQL Server',11,3);
@@ -102,13 +102,13 @@ SELECT	custid, country, region, city,
 			country + ',' + COALESCE(region, ' ') + ', ' + city as location
 FROM Sales.Customers;
 ```
-### 6. CONVERT
+#### 6. CONVERT
 ```
 SELECT  CONVERT(datetime, '20120212', 102) AS ANSI_style ;
 SELECT CONVERT(CHAR(8), CURRENT_TIMESTAMP,112) AS ISO_style;
 SELECT PARSE('01/02/2012' AS datetime2 USING 'en-US') AS parse_result; 
 ```
-### 7. CORRELATED SUBQUERIES 
+#### 7. CORRELATED SUBQUERIES 
 ```
 SELECT orderid, empid, orderdate
 FROM Sales.Orders AS O1
@@ -147,7 +147,7 @@ WHERE EXISTS (
 	WHERE c.custid=o.custid);
 ```
 
-### 8. DERIVED TABLE
+#### 8. DERIVED TABLE
 ```
 SELECT orderyear, cust_count
 FROM  (
@@ -166,7 +166,7 @@ SELECT orderyear, COUNT(DISTINCT custid) AS cust_count
 	GROUP BY orderyear
 HAVING COUNT(DISTINCT custid) > 80;
 ```
-### 9. UNION
+#### 9. UNION
 ```
 SELECT country, region, city FROM HR.Employees
 UNION ALL 
@@ -177,7 +177,7 @@ SELECT empid, country, region, city FROM HR.Employees where country = 'uk' and c
 UNION ALL 
 SELECT custid, country, region, city FROM Sales.Customers;
 ```
-### 10. OVER
+#### 10. OVER
 #### Rank products by price in descending order in each category (partitioned by category)
 ```
 SELECT CatID, CatName, ProdName, UnitPrice,
@@ -195,7 +195,7 @@ SELECT Category, Qty, Orderyear,
 		AND CURRENT ROW) AS RunningQty  ------like bank account statement for each category.
 FROM Sales.CategoryQtyYear;
 ```
-### 11. VIEW
+#### 11. VIEW
 #### Create a View
 ```
 CREATE VIEW Sales.OrdersByEmployeeYear
@@ -220,7 +220,7 @@ ORDER BY employee, orderyear;
 ```
 DROP VIEW Sales.OrdersByEmployeeYear;
 ```
-### 12. PROCEDURE
+#### 12. PROCEDURE
 #### Check if the procedure already exists
 ```
 IF OBJECT_ID('Production.sp_ProductsbySuppliers','P') IS NOT NULL
@@ -253,7 +253,7 @@ USE TSQL2012;
 GO
 EXEC sys.sp_stored_procedures;
 ```
-### 13. PIVOT, UNPIVOT
+#### 13. PIVOT, UNPIVOT
 #### Pivot
 ```
 SELECT  Category, [2006],[2007],[2008]

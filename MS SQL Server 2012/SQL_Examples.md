@@ -242,7 +242,7 @@ WHERE   supplierid = @supplierid
 ORDER BY productid;
 GO
 ```
-#### Test Procedure
+#### Test the Procedure
 ```
 EXEC Production.sp_ProductsbySuppliers @supplierid = 2;
 GO

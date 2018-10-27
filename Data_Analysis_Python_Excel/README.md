@@ -1,11 +1,10 @@
-### Title
-### test
+### Excel & Python
 
-Some basic Git commands are:
-```
-git status
-git add
-git commit
-```
+There are many opinions over which is better between Python and Excel in data analysis. Actually, Excel and Python were developed based on different original purposes, usages and characteristics. Python is a programming/script language while Excel was developed as a spread sheet software. Despite the factors, each has its own advantages in data analysis job and I think they can be utilized in a complementary way.
 
-![test](https://user-images.githubusercontent.com/37023565/47379898-29556400-d6ca-11e8-864d-04065c1f6fc7.jpg)
+- Advantage of Excel
+
+
+
+- Advantage of Python
+

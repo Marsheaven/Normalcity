@@ -43,7 +43,7 @@ root
 ```
 Likewise, I created a DataFrame for trips2
 
-###3 4. Create an enriched_trip DataFrame using SQL
+#### 4. Create an enriched_trip DataFrame using SQL
 
 By importing the sql repository, it is possible to use SQL queries in Spark.
 ```
@@ -63,6 +63,7 @@ This is the result of the join. You can see there is no duplicated column.
 scala> riched_trips2.write.format("csv").save("result.csv")
 ```
 I attached the result file from the test, along with the result from the double join integrating trips.txt, frequencies.txt, and calendar_dates.txt files together.
+```
   - Spark_ETL_TEST_results.csv
   - Spark_ETL_Double_Join_results.csv
-
+```

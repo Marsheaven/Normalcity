@@ -56,7 +56,7 @@ riched_trips: org.apache.spark.sql.DataFrame = [trip_id: string, route_id: strin
 ```
 This is the result of the join. You can see there is no duplicated column.
 
-![test](https://user-images.githubusercontent.com/37023565/47589963-ccabb080-d938-11e8-8bbf-d7f695fa4b7f.jpg)
+![test](https://user-images.githubusercontent.com/37023565/47673670-ae89be80-db8b-11e8-8262-923228fa2ccf.jpg)
 
 5. Save DataFrame of enriched_trips as a csv file
 ```

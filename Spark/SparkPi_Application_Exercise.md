@@ -1,4 +1,6 @@
-I followed the instruction in the guide to run the first scala application,
+### Issue in the executing sbt package
+
+I followed the instruction in the guide(the attached file) to run the first scala application,
 however I failed at the step of creating the jar file.
 
 ```
@@ -21,23 +23,32 @@ downloading file:////root/.sbt/preloaded/org.scala-sbt/sbt/1.2.3/jars/sbt.jar ..
 [error] Total time: 87 s, completed Oct 6, 2018 6:47:26 PM
 [root@localhost SparkPi]#
 ```
+### My solution
+#### Version modification?
+At first, I thought that this issue was caused by the different version of Spark(My Spark version is "2.2.0") which I use. Thus, I changed the version as follows:
+```
+scalaVersion of "2.10.4" => scalaVersion of "2.11.8" 
+```
+#### Revising importing package repository
+I focused on the error message of 'overflow' and there seemed something wrong in the execution of the math function. This is not about the code itself, so the issue should be in the package of scala.math.random. Some part of the repository might have been missed or modified over time. Therefore, I corrected the importing repository as follows:
+```
+ import scala.math.random => import scala.math._
+```
+Then, it was successfully executed, regardless of the scalaVersion (in both of "2.10.4" and "2.11.8")
 
-/**
-The following is my resolution
-and the result of re-running the application successfully.
-*/
+The following is the result of re-running the application successfully.
 
-1. Open the SparkPi.scala
-
+#### 1. Open the SparkPi.scala
+```
 [root@localhost scala]# vim SparkPi.scala
-
-2. Modify the first math packages as follows:
-
+```
+#### 2. Modify the first math packages as follows:
+```
 import scala.math._
 import org.apache.spark._
-
-3. The rest part is the same
-
+```
+#### 3. The rest part is the same
+```
 /** Computes an approximation to pi */
 object SparkPi {
 def main(args: Array[String]) {
@@ -60,16 +71,16 @@ println("Pi is roughly " + 4.0 * count / n)
 spark.stop()
 }
 }
-
-4. Move to the SparkPi and Remove the previously loaded project and target directories
-
+```
+#### 4. Move to the SparkPi and Remove the previously loaded project and target directories
+```
 [root@localhost SparkPi]# rm -Rf project/
 [root@localhost SparkPi]# rm -Rf target/
 [root@localhost SparkPi]# ls
 sparkpi.sbt  src
-
-5. Create the jar file
-
+```
+#### 5. Create the jar file
+```
 [root@localhost SparkPi]# sbt package
 [info] Updated file /root/SparkPi/project/build.properties: set sbt.version to 1.2.3
 [info] Loading project definition from /root/SparkPi/project
@@ -81,16 +92,16 @@ sparkpi.sbt  src
 [info] Done packaging.
 [success] Total time: 24 s, completed Oct 8, 2018 12:45:07 AM
 [root@localhost SparkPi]# 
-
-6. Running the application by spark-submit
-
+```
+#### 6. Running the application by spark-submit
+```
 [root@localhost SparkPi]# $SPARK_HOME/bin/spark-submit \
 > --class "SparkPi" \
 > --master local[4] \
 > target/scala-2.11/sparkpi-project_2.11-1.0.jar
-
-7. Results of running the application
-
+```
+#### 7. Results of running the application
+```
 .....
 18/10/08 00:59:49 INFO DAGScheduler: Job 0 finished: reduce at SparkPi.scala:19, took 1.916906 s
 Pi is roughly 3.14048
@@ -104,10 +115,8 @@ Pi is roughly 3.14048
 18/10/08 00:59:49 INFO ShutdownHookManager: Shutdown hook called
 18/10/08 00:59:49 INFO ShutdownHookManager: Deleting directory /tmp/spark-5122bf5f-f460-49cd-84cc-d0d5ed0164c8
 [root@localhost SparkPi]#
-
-/** This worked even though I run a different scalaVersion of "2.11.8", not "2.10.4". (My Spark version is "2.2.0")
-    The result was the same when I changed the scalaVersion to "2.11.8" in the sparkpi.sbt and jar file accordingly.
-*/
+```
+We can see the result of this application at the message as "Pi is roughly 3.14048".
 
 
 

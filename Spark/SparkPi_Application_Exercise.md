@@ -1,9 +1,7 @@
-
-/**
 I followed the instruction in the guide to run the first scala application,
 however I failed at the step of creating the jar file.
-*/
 
+```
 [root@localhost SparkPi]# sbt package
 Getting org.scala-sbt sbt 1.2.3  (this may take some time)...
 downloading file:////root/.sbt/preloaded/org.scala-sbt/sbt/1.2.3/jars/sbt.jar ...
@@ -22,7 +20,7 @@ downloading file:////root/.sbt/preloaded/org.scala-sbt/sbt/1.2.3/jars/sbt.jar ..
 [error] (Compile / compileIncremental) Compilation failed
 [error] Total time: 87 s, completed Oct 6, 2018 6:47:26 PM
 [root@localhost SparkPi]#
-
+```
 
 /**
 The following is my resolution

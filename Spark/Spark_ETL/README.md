@@ -4,14 +4,14 @@ Spark can be used as a pipeline for the simple ETL(Extract, Transform, and Load 
 
 I tested the Spark ETL using STM GTFS files(available at http://www.stm.info/en/about/developers). I picked up only three files(trips.txt, frequencies.txt, and calendar_dates.txt) to add minimal enrichments by join query, and created a mini-sized version of trips2.txt(4 rows) and frequencies2(4 rows) for a test.
 
-- My test design is as follows:
+#### My test design is as follows:
 
-  - Extract
-    // I downloaded the STM GTFS files and stored them in the HDFS(staging area). And I opened the files into DataFrame in Spark.
-  - Transform
-    // I executed SQL Join query to integrate the columns of trips2.txt with those of frequencies2.txt 
-  - Load
-    // I saved the result as a csv file on the local disk. (Or, you can save them in your database created in HIVE)
+- Extract
+// I downloaded the STM GTFS files and stored them in the HDFS(staging area). And I opened the files into DataFrame in Spark.
+- Transform
+// I executed SQL Join query to integrate the columns of trips2.txt with those of frequencies2.txt 
+- Load
+// I saved the result as a csv file on the local disk. (Or, you can save them in your database created in HIVE)
 
 Next is the detailed steps for Spark ETL.
 

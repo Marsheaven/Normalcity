@@ -1,6 +1,7 @@
+## Spark Application
 ### Issue in the executing sbt package
 
-I followed the instruction in the guide(the attached file) to run the first scala application,
+I followed the instruction in the guide(Spark_Applicaiton_Guide.pdf) to run the first scala application,
 however I failed at the step of creating the jar file.
 
 ```
@@ -116,7 +117,7 @@ Pi is roughly 3.14048
 18/10/08 00:59:49 INFO ShutdownHookManager: Deleting directory /tmp/spark-5122bf5f-f460-49cd-84cc-d0d5ed0164c8
 [root@localhost SparkPi]#
 ```
-We can see the result of this application at the message as "Pi is roughly 3.14048".
+We can see the result of this application at the message of "Pi is roughly 3.14048".
 
 
 

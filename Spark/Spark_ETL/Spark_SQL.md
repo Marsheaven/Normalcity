@@ -21,7 +21,7 @@ scala> val riched_trips3 = trips2.
      | join(frequencies2, trips2.col("trip_id") === frequencies2.col("trip_id"))
 riched_trips3: org.apache.spark.sql.DataFrame = [route_id: string, service_id: string ... 11 more fields]
 ```
-3 shows the duplicated columns of 'trip_id', thus this DataFrame can not be saved as a file. You can see the number of fields is one more than that of 1 and 2 at the underlined message.
+3 shows the duplicated columns of 'trip_id', thus this DataFrame can not be saved as a file. You can see the number of fields is one more than that of 1 and 2 at the message.
 
 #### 4.
 ```

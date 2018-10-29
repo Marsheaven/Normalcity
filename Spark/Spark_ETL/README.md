@@ -1,4 +1,4 @@
-### SPARK ETL
+## SPARK ETL
 
 Spark can be used as a pipeline for the simple ETL(Extract, Transform, and Load data into DataWarehouse). There are some video clips in Youtube claiming the elimination/substitution of ETL by Spark. I do not fully agree with that, however, it is clear that Spark is a very fast and convenient platform for large amount of data manipulation.
 
@@ -15,15 +15,15 @@ I tested the Spark ETL using STM GTFS files(available at http://www.stm.info/en/
 
 Next is the detailed steps for Spark ETL.
 
-1. Create a staging directory on HDFS
+#### 1. Create a staging directory on HDFS
 ```
 e.g. [root@localhost ~]# hadoop fs -mkdir /user/hive/warehouse/stm/gtfs/staging/frequencies2
 ```
-2. Extract the downloaded data from STM and store them into staging area 
+#### 2. Extract the downloaded data from STM and store them into staging area 
 ```
 e.g. [root@localhost ~]# hadoop fs -put Downloads/gtfs_stm/frequencies2.txt /user/hive/warehouse/stm/gtfs/staging/frquencies2
 ```
-3. Read files on HDFS into DataFrame 
+#### 3. Read files on HDFS into DataFrame 
 ```
 scala> val frequencies2 = spark.read.format("csv").option("header","true").
      | load("hdfs://localhost:9000//user/hive/warehouse/stm/gtfs/staging/frequencies2/frequncies2.txt")
@@ -43,7 +43,7 @@ root
 ```
 Likewise, I created a DataFrame for trips2
 
-4. Create an enriched_trip DataFrame using SQL
+###3 4. Create an enriched_trip DataFrame using SQL
 
 By importing the sql repository, it is possible to use SQL queries in Spark.
 ```
@@ -58,9 +58,11 @@ This is the result of the join. You can see there is no duplicated column.
 
 ![test](https://user-images.githubusercontent.com/37023565/47673670-ae89be80-db8b-11e8-8262-923228fa2ccf.jpg)
 
-5. Save DataFrame of enriched_trips as a csv file
+#### 5. Save DataFrame of enriched_trips as a csv file
 ```
 scala> riched_trips2.write.format("csv").save("result.csv")
 ```
-I attached the result file from mini-test, along with the result from the double join integrating trips.txt, frequencies.txt, and calendar_dates.txt files together.
+I attached the result file from the test, along with the result from the double join integrating trips.txt, frequencies.txt, and calendar_dates.txt files together.
+  - Spark_ETL_TEST_results.csv
+  - Spark_ETL_Double_Join_results.csv
 

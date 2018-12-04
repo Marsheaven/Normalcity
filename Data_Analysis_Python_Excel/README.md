@@ -1,6 +1,6 @@
 ### Excel & Python
 
-There are many opinions over which is better in data analysis work, between Excel and Python. Actually, Excel and Python were developed based on different original purposes, with different usages and characteristics. Python is a programming/scripting language while Excel was developed as a spread sheet software. Despite the different features, each has its own advantage in data analysis job and I think they can be utilized in a complementary way.
+#### There are many opinions over which is better in data analysis work, between Excel and Python. Actually, Excel and Python were developed based on different original purposes, with different usages and characteristics. Python is a programming/scripting language while Excel was developed as a spread sheet software. Despite the different features, each has its own advantage in data analysis job and I think they can be utilized in a complementary way.
 
 #### Advantage of Excel
 - Simple data analysis from well-prepared data

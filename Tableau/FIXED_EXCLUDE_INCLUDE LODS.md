@@ -1,6 +1,6 @@
 ### FIXED/EXCLUDE/INCLUDE Level of Detail (LOD)
 
-The tableau automatically provides the aggregated sum (default aggregation) by a specific dimension when we select a dimension and a measure. The example 1 below shows the Sales by Category. This is the same value when the Fixed LOD is applied to Category. 
+The tableau automatically provides the aggregated sum (default aggregation) by a specific dimension when we select a dimension and a measure. The example 1 below shows the Sales by Category(Data Source: Superstore). This is the same value when the Fixed LOD is applied to Category. 
 
 #### Example 1
 
@@ -21,4 +21,3 @@ Exclude LOD is used to exclude a (lower level of) dimension in the aggregation c
 Include LOD is used to include a dimension in the aggregation computation, when it is cleared in the rows or columns.
 
 Basically, the function of Fixed LOD and Include LOD is the same in that both apply aggregation by a specific dimension. Also, Fixed LOD can be used instead of Exclude LOD as shown in the Example 2. Because excluding a lower level of dimension is the same as adding a fixed higher level of dimension in the aggregation. 
-

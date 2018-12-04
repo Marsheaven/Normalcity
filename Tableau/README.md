@@ -1,11 +1,12 @@
-### Title
-### test
+### Tableau
 
-Some basic Git commands are:
-```
-git status
-git add
-git commit
-```
+Tableau is a visualization tool and platform specialized in large size of dataset.
+Tableau is effective in creating a colorful map and creates various kinds of charts easily even with large size of data.
+However, the advantage can be limitations for Tableau at the same time.
 
-![test](https://user-images.githubusercontent.com/37023565/47379898-29556400-d6ca-11e8-864d-04065c1f6fc7.jpg)
+For optimizing Tableau, Tableau users should be aware of order of operations and well-arranged dataset is necessary.
+
+- Order of Operations
+- FIXED, EXCLUDE, INCLDE Level of Datail (LOD)
+
+![tableau](https://user-images.githubusercontent.com/37023565/49418902-62b1d280-f752-11e8-92cd-eeac90150d72.jpg)

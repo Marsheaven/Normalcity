@@ -5,7 +5,7 @@
 The order of operations means the order that an action is executed in Tableau. Tabluau users should be aware of the order of operations to avoid possible error. 
 More detailed information can be found this link: https://onlinehelp.tableau.com/current/pro/desktop/en-us/order_of_operations.htm
 
-For me, what is more important matter is lack of warning when we mis-use the order of operations. For example, if we input wrong commands, we notice it by error message after running the commands. However, even when we mis-use the order of operations, Tableau creates a plausible chart which looks normal. 
+For me, what is more important matter is lack of warning when we mis-use the order of operations. For example, if we input wrong commands, we notice it by error message after running the commands. However, even when we mis-use the order of operations, Tableau creates a plausible chart which looks normal with wrong value. 
 
 For example, if we want a chart result which shows sales by TOP 10 customers in New York City, we should apply the Dimension filter(New York City) as Context Filter after applying the TOP 10 filter. What matters is that Tableau shows a plausible chart even when we do not apply the Context Filter. Thus, there is always a possibility for mistake, depending on Tableau users.
 

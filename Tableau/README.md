@@ -1,10 +1,8 @@
 ### Tableau
 
-Tableau is a visualization tool and platform specialized in large size of dataset.
-Tableau is effective in creating a colorful map and creates various kinds of charts easily even with large size of data.
-However, the advantage can be limitations for Tableau at the same time.
-
-For optimizing Tableau, Tableau users should be aware of order of operations and well-arranged dataset is necessary.
+Tableau is a strong visualization tool and platform dealing with large size of data.
+Tableau creates various kinds of charts easily based on its own automatic functions, with advantages in creating a spectacular map.
+However, the advantage of the automatic functions can be limitations for using Tableau. For optimizing Tableau, Tableau users should be aware of order of operations and well-prepared dataset is required.
 
 - Order of Operations
 - FIXED, EXCLUDE, INCLDE Level of Datail (LOD)

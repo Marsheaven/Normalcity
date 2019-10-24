@@ -1,0 +1,142 @@
+{\rtf1\ansi\ansicpg949\deff0\nouicompat\deflang1033\deflangfe1042{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset129 Malgun Gothic;}{\f2\fnil Courier New;}{\f3\fnil\fcharset0 Courier New;}{\f4\fnil\fcharset129 \'b8\'bc\'c0\'ba \'b0\'ed\'b5\'f1;}}
+{\colortbl ;\red0\green0\blue0;\red128\green128\blue128;\red0\green0\blue128;\red178\green0\blue178;\red0\green128\blue128;\red102\green0\blue153;\red0\green0\blue255;\red255\green255\blue255;}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\sl240\slmult1\b\f0\fs22 3. CNNs(Convolutional Neural Network)\par
+\par
+\b0 : Featuring higher accuracies when classifying images\par
+\par
+* Convolutions\par
+e.g. Greyscale image 6*6(36 pixels): each pixel has a value ranging from 0 to 255.\par
+-> the value is normalized to 0 ~ 1 when processing the model.\par
+: Convolution means the process of applying  a kernel(filter) to an image\par
+: Creating a convoluted image by calculating corresponding value: sum of (pixel value*kernel value)\par
+-> assigned to convoluted image (center value of pixel/kernel --> mapped to the assigned position)\par
+- zero-padding\par
+: processing pixels (cannot be center of kernel)positioned at the edge\par
+: change the pizel value positioned at the edge to zero -> calculate the corresponding value\par
+\par
+* Maxpooling\par
+: Process of reducing the size of an input image by summarizing regions\par
+: Downsizing the image based on the max value of sectioned pixel\par
+\par
+* Coding: convolutional layers are added to the neural network model using Conv2D layer type.\par
+- Conv2D layer: has weights and biases as well as kernels/filter\par
+-> thus, the values inside the filter matrix are the variables that get tuned to produce the right output\par
+\par
+* Writing a code to train the model\par
+\par
+- Colab runtime setting: change runtime type; GPU\par
+- Install -U tensorflow datasets\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\i\f1\fs18\lang1042 e.g. \f2\lang1033 !pip install -U tensorflow_datasets\par
+\cf2\par
+
+\pard\sl240\slmult1\cf0\i0\f0\fs22  - Import the dependencies\par
+e.g.\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf3\b\f2\fs18 from \cf1\b0 __future__ \cf3\b import \cf1\b0 absolute_import, division, print_function, unicode_literals\line\cf2\i\line\cf3\b\i0 import \cf1\b0 tensorflow \cf3\b as \cf1\b0 tf\line\cf3\b import \cf1\b0 tensorflow_datasets \cf3\b as \cf1\b0 tfds\line tfds.disable_progress_bar()\par
+\cf3\b import \cf1\b0 math\line\cf3\b import \cf1\b0 numpy \cf3\b as \cf1\b0 np\line\cf3\b import \cf1\b0 matplotlib.pyplot \cf3\b as \cf1\b0 plt\par
+\par
+\cf3 print\cf1 (tf.\cf4 __version__\cf1 )\par
+tf.enable_eager_execution()\f1\lang1042        \f2\lang1033\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 => disregard warning\par
+e.g.\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf3\b\f2\fs18 import \cf1\b0 logging\line logger = tf.get_logger()\line logger.setLevel(logging.ERROR)\par
+
+\pard\sl240\slmult1\cf0\f0\fs22\par
+- Data set-up\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\f1\fs18\lang1042 e.g. (loading data)\f2\lang1033\par
+dataset, metadata = tfds.load(\cf5\b 'fashion_mnist'\cf1\b0 , \cf6 as_supervised\cf1 =\cf3\b True\cf1\b0 , \cf6 with_info\cf1 =\cf3\b True\cf1\b0 )\line train_dataset, test_dataset = dataset[\cf5\b 'train'\cf1\b0 ], dataset[\cf5\b 'test'\cf1\b0 ]\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 => loading datasets return meta data, training and test dataset.\par
+//The images are 28  \'d7  28 arrays, with pixel values in the range [0, 255]. \par
+e.g.  (store class names)\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\f2\fs18 class_names = [\cf5\b 'T-shirt/top'\cf1\b0 , \cf5\b 'Trouser'\cf1\b0 , \cf5\b 'Pullover'\cf1\b0 , \cf5\b 'Dress'\cf1\b0 , \cf5\b 'Coat'\cf1\b0 , \line                \cf5\b 'Sandal'\cf1\b0 ,      \cf5\b 'Shirt'\cf1\b0 ,   \cf5\b 'Sneaker'\cf1\b0 ,  \cf5\b 'Bag'\cf1\b0 ,   \cf5\b 'Ankle boot'\cf1\b0 ]\cf0\f0\fs22           \par
+
+\pard\sl240\slmult1 e.g. (explore the data)\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\f2\fs18 num_train_examples = metadata.splits[\cf5\b 'train'\cf1\b0 ].num_examples\line num_test_examples = metadata.splits[\cf5\b 'test'\cf1\b0 ].num_examples\line\cf3 print\cf1 (\cf5\b "Number of training examples: \{\}"\cf1\b0 .format(num_train_examples))\line\cf3 print\cf1 (\cf5\b "Number of test examples:     \{\}"\cf1\b0 .format(num_test_examples))\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 =>\par
+Number of training examples: 60000\par
+Number of test examples:     10000\par
+e.g. (pre-process)\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf3\b\f2\fs18 def \cf1\b0 normalize(images, labels):\line   images = tf.cast(images, tf.float32)\line   images /= \cf7 255\line   \cf3\b return \cf1\b0 images, labels\line\cf2\i\line\cf1\i0 train_dataset =  train_dataset.map(normalize)\line test_dataset  =  test_dataset.map(normalize)\par
+\f1\lang1042 //The value of each pixel in the image data is an integer in the range [0,255].=>the type should be float.\f2\lang1033\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 //the image values(range [0, 255] need to be normalized to the range [0,1].\par
+\par
+e.g. (Explroe the preprocess)\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf3\b\f2\fs18 for \cf1\b0 image, label \cf3\b in \cf1\b0 test_dataset.take(\cf7 1\cf1 ):\line   \cf3\b break\line\cf1\b0 image = image.numpy().reshape((\cf7 28\cf1 ,\cf7 28\cf1 ))\line\line\cf2\i # Plot the image - voila a piece of fashion clothing\line\cf1\i0 plt.figure()\line plt.imshow(image, \cf6 cmap\cf1 =plt.cm.binary)\line plt.colorbar()\line plt.grid(\cf3\b False\cf1\b0 )\line plt.show()\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 =>\par
+\par
+e.g. (Display the first 25 images in training set with the class name)\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\f2\fs18 plt.figure(\cf6 figsize\cf1 =(\cf7 10\cf1 ,\cf7 10\cf1 ))\line i = \cf7 0\line\cf3\b for \cf1\b0 (image, label) \cf3\b in \cf1\b0 test_dataset.take(\cf7 25\cf1 ):\line     image = image.numpy().reshape((\cf7 28\cf1 ,\cf7 28\cf1 ))\line     plt.subplot(\cf7 5\cf1 ,\cf7 5\cf1 ,i+\cf7 1\cf1 )\line     plt.xticks([])\line     plt.yticks([])\line     plt.grid(\cf3\b False\cf1\b0 )\line     plt.imshow(image, \cf6 cmap\cf1 =plt.cm.binary)\line     plt.xlabel(class_names[label])\line     i += \cf7 1\line\cf1 plt.show()\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 =>\par
+\par
+- Build the model\par
+1) Setup the layer\par
+e.g.\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\f2\fs18 model = tf.keras.Sequential([\line     tf.keras.layers.Conv2D(\cf7 32\cf1 , (\cf7 3\cf1 ,\cf7 3\cf1 ), \cf6 padding\cf1 =\cf5\b 'same'\cf1\b0 , \cf6 activation\cf1 =tf.nn.relu,\line                            \cf6 input_shape\cf1 =(\cf7 28\cf1 , \cf7 28\cf1 , \cf7 1\cf1 )),\line     tf.keras.layers.MaxPooling2D((\cf7 2\cf1 , \cf7 2\cf1 ), \cf6 strides\cf1 =\cf7 2\cf1 ),\line     tf.keras.layers.Conv2D(\cf7 64\cf1 , (\cf7 3\cf1 ,\cf7 3\cf1 ), \cf6 padding\cf1 =\cf5\b 'same'\cf1\b0 , \cf6 activation\cf1 =tf.nn.relu),\line     tf.keras.layers.MaxPooling2D((\cf7 2\cf1 , \cf7 2\cf1 ), \cf6 strides\cf1 =\cf7 2\cf1 ),\line     tf.keras.layers.Flatten(),\line     tf.keras.layers.Dense(\cf7 128\cf1 , \cf6 activation\cf1 =tf.nn.relu),\line     tf.keras.layers.Dense(\cf7 10\cf1 ,  \cf6 activation\cf1 =tf.nn.softmax)\line ])\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 //Conv2D filters(3,3) applied to the input image retaining the original image size and creating 32 output (convoluted) images.\par
+//The 32 outputs are reduced using a maxpooling2D(2,2) with a stride of 2.\par
+//Flatten layer flattens the data into a 1D array.\par
+//The 128-neuron is followed by 10-nodes softmax layer. Each node represents a class.\par
+//The final layer's output value is 0~1, representing the probability that the image belongs to the class.\par
+\par
+2) Compile the model\par
+e.g.\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\f2\fs18 model.compile(\cf6 optimizer\cf1 =\cf5\b 'adam'\cf1\b0 ,\line               \cf6 loss\cf1 =\cf5\b 'sparse_categorical_crossentropy'\cf1\b0 ,\line               \cf6 metrics\cf1 =[\cf5\b 'accuracy'\cf1\b0 ])\par
+\cf0\f0\fs22\par
+
+\pard\sl240\slmult1 3) Train the model\par
+e.g.\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\f2\fs18 BATCH_SIZE = \cf7 32\line\cf1 train_dataset = train_dataset.repeat().shuffle(num_train_examples).batch(BATCH_SIZE)\line test_dataset = test_dataset.batch(BATCH_SIZE)\cf0\f0\fs22\par
+
+\pard\sl240\slmult1 e.g.\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\f2\fs18 model.fit(train_dataset, \cf6 epochs\cf1 =\cf7\f3 10\cf1\f2 , \cf6 steps_per_epoch\cf1 =math.ceil(num_train_examples/BATCH_SIZE))\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 // training  a total of 600,000 examples(10*60,000)\par
+=> ...\par
+Epoch 10/10 ----------------- acc: 0.9752           //very high accuracy rate\par
+\par
+4) Evaluate the accuracy\par
+e.g.\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf1\f2\fs18 test_loss, test_accuracy = model.evaluate(test_dataset, \cf6 steps\cf1 =math.ceil(num_test_examples/\cf7 32\cf1 ))\line\cf3 print\cf1 (\cf5\b 'Accuracy on test dataset:'\cf1\b0 , test_accuracy)\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 =>\par
+313/313 -------------------------- acc:0.9180  //due to too many epochs, over-fitting or memorizing data, accuracy rate has been lowered than training time.\par
+\par
+5) Make predictions\par
+e.g.\par
+
+\pard\box\brdrdash\brdrw0 \cbpat8\sl240\slmult1\cf3\b\f2\fs18 for \cf1\b0 test_images, test_labels \cf3\b in \cf1\b0 test_dataset.take(\cf7 1\cf1 ):\line   test_images = test_images.numpy()\line   test_labels = test_labels.numpy()\line   predictions = model.predict(test_images)\line\f1\lang1042 e.g.\f2\lang1033\line predictions.shape\par
+
+\pard\sl240\slmult1\cf0\f0\fs22 => (32, 10)                               //32 batches, 10 classes\par
+e.g.\par
+predictions[0]\par
+=> array([8.7773266e-08, 5.9426352e-13, ......, 9.9769813e-01, 8.7626208e-12,\par
+1.6528588e-10, 9.3784724e-10], dtype=float32)\par
+e.g.\par
+np.argmax(predictions[0])\par
+=> 6\par
+\par
+
+\pard\sa200\sl276\slmult1\f4\fs20\lang18\par
+}
+ 

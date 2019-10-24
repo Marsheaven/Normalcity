@@ -1,0 +1,239 @@
+{\rtf1\ansi\ansicpg949\deff0\nouicompat\deflang1033\deflangfe1042{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset129 \'b8\'bc\'c0\'ba \'b0\'ed\'b5\'f1;}{\f2\fnil\fcharset129 Malgun Gothic;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.17134}\viewkind4\uc1 
+\pard\sl240\slmult1\b\fs20\lang18 < Python: Jupyter notebook >\par
+\b0\par
+\b 1. Basic modules\par
+\b0\par
+import pandas as pd\par
+import numpy as np\par
+\par
+import matplotlib.pyplot as plt\par
+%matplotlib inline\par
+\par
+\b 2. File reading/save\par
+\b0\par
+# File reading (csv file)\par
+df = pd.read_csv('house_data.csv')\par
+df = pd.read_csv('C:\\\\Users\\\\pc\\\\Documents\\\\Python_2019\\house_data.csv')\par
+\lang1042 df = pd.read_csv('file_path', usecols=[0,1,2,3]) \lang18\par
+\par
+# File reading (json file)\par
+with open('C:\\\\Users\\\\pc\\\\Documents\\\\Kaggle\\housedata\\data.dat') as json_file:\par
+              json_data = json.load(json_file)\par
+              house = pd.DataFrame(json_data)\par
+\par
+# Normalize json data\par
+df = json_normalize(house_data)\par
+\par
+# Web data download\par
+url = '{{\field{\*\fldinst{HYPERLINK http://bit.ly/drinksbycountry }}{\fldrslt{http://bit.ly/drinksbycountry\ul0\cf0}}}}\f0\fs20 '\par
+data = pd.read_csv(url)                                   \lang1042\par
+\lang18\par
+# Excel file import\par
+df_excel = pd.read_excel('./data/spreadsheet.xls',\par
+    sheetname='sheet1',\par
+    skiprows=[1] )\par
+df_names = pd.read_excel('./data/names_all.xls', header=None)    //import without header\par
+\par
+# Export to excel\par
+df[['name_company', 'name_candidate']].to_excel('./output/companies.xls')\par
+\par
+# File saving\par
+\lang1042 df.to_csv(r'C:\\\\Users\\\\pc\\\\Documents\\\\Python_2019\\name.csv', index = None, header=True) \lang18\par
+\par
+\b 3. Checking data\par
+\b0\par
+df.head()\par
+df.describe()\par
+df.describe().T     //transpose\par
+df.shape\par
+df.dtypes\par
+df['name'] = df['name'].astype('str')        //convert data type\par
+df[['bedrooms', 'bathrooms']] = df[['bedrooms', 'bathrooms']].astype(float)\par
+\par
+\b 4. Rows/columns manipulation\par
+\b0\par
+# Show columns\par
+df.columns\par
+df['col1']\par
+df[['col1', 'col2']]\par
+\lang1033 df[df['zipcode'] == 98002]                                    //\f1\lang1042 conditional print(data filtering)\f0\lang1033\par
+\lang1042 df[(df.date < '2014-10-10') & (df.zipcode == 98003)]\lang1033     //\f2\lang1042 conditional print(data filtering)\f0\lang1033\par
+\lang18 df.sort_values(by='price'), ascending=False                     //data sorting\par
+\par
+# Show rows\par
+df.index[0]\par
+df[0:5]\par
+df.loc[index_number]\par
+df.head()\par
+df.tail()\par
+\par
+# Show specific range(rows/columns)\par
+df['col1'][0]\par
+df['col1'][0:5]\par
+df.iloc[3]                //row 3\par
+df.iloc[[1],[0,1]]      //row, column\par
+df.iloc[[0:2, 3:5]\par
+df.iloc[ :, :]       //total range\par
+df.iloc[4338, 16] = df.iloc[4338, 0] + df.iloc[4338, 1]\par
+\par
+# Rename columns\par
+df.rename(columns=\{'id': 'id_new', 'object': 'object_new'\}, inplace=True)\par
+df.columns = [ 'new_col1', 'new_col2', 'new_col3' ]\par
+\par
+# Insert a new column\par
+df['new_column'] = df2['column']\par
+\par
+# Drop columns\par
+df = df.drop('col', axis=1, inplace=True)\par
+del df['col']\par
+df=df[['b','c']]                             //create a new df\par
+\par
+# Drop rows\par
+\lang1042 df.drop([0,3]) \par
+df.drop(df.index[2])\par
+\lang18\par
+# Set a new index\par
+\lang1042 df.set_index('zipcode', inplace=True)\lang1033    \par
+\lang18\par
+\b 5. Data manipulation\par
+\b0\par
+# Fill NaN data with number\par
+df['col'] = df['col'].fillna(-1).astype(int)\par
+\par
+# Delete NaN value\par
+\lang1042 df.dropna()\lang1033                          //delete rows with NaN \lang1042 value\par
+df.dropna(axis=1)                  //delete columns with NaN value\par
+df = df.dropna(subset=['col1', 'col2'])     // delete rows with NaN value in specific columns\par
+df.dropna(thresh=2)              // keep data with NaN value less than 2\par
+df.dropna(how='all')              //delete rows/columns with NaN values for every element\par
+\lang18\par
+# Dropping all rows with NaN value from 'price' column;\par
+df3.dropna(subset=['price'], axis=0, inplace=True)\par
+\par
+# Replacing all NaN value to zero(numeric value)\par
+df3['yr_renovated'] = np.nan_to_num(df3['yr_renovated']).astype(np.int64)\par
+\par
+# Replacing all NaN value to zero(numeric value)\par
+df2['yr_renovated'].fillna(0, inplace=True)\par
+\par
+# Replacing all NaN values to mean\par
+df3['price'].fillna(df3.groupby(['bedrooms', 'bathrooms', 'city', 'zipcode'])['price'].transform('mean'), inplace=True)\par
+\par
+# Delete duplicated value\par
+\lang1042 df.drop_duplicates()   \lang18\par
+df.drop_duplicates(['column 3'])   //\lang1042 delete rows with a duplicated value in a specific column\lang18\par
+df = df.drop_duplicates(subset='id', keep='first')  //delete dupilcated rows in a specific column\par
+\par
+# Count value\par
+df['price'].value_counts()                   //count rows\par
+df['name'].nunique()                          //count unique values\par
+df.column_name.value_counts()            //\lang1042 count values on a specific column \lang18\par
+\par
+# Data sorting\par
+df.sort_values('nom', inplace=True)\par
+df.sort_values(by='price'), ascending=False\par
+df.sort_values(by=['price','bathrooms'], ascending=False)    \par
+ \par
+# Data grouping\par
+df_groups = df.groupby(df['column'])        \par
+df_groups = oject.groupby('column')\par
+df_groups.mean()\par
+df.groupby(by=['bedrooms', 'bathrooms'])['price'].mean().round()  \par
+\par
+# Data filtering/grouping\par
+df[df['id'] == '48']\par
+df[(df['category'] == 'national') & (df['is_removed'] == '1')]\par
+\lang1042 df[(df.date < '2014-10-10') & (df.zipcode == 98003)]\lang1033   \par
+df[df['category'].str.contains('national')]                                  //filter rows containging a string\lang18\par
+df[df['id'].isin(['109', '673'])]                                                //filter rows where value is in a list\par
+df = df[~df['id'].isin(['1', '2', '3'])]                                     //filter rows where value is NOT in a list\par
+df[df['sqft_temp'] != df['sqft_living']].index                  //show index of rows which fit the condition\par
+\par
+# Changing the date format\par
+df['date'] = pd.to_datetime(df['date']).dt.strftime('%Y-%m-%dT%H:%m:%s')\par
+=> 2014-05-03 00:00:00\par
+\par
+# Replacing the flawed data value\par
+df['column'].replace(['before'], ['after'], inplace=True)\par
+df.column.replace(\{'before':'after'\}, inplace=True)\par
+\par
+# Split long list of data into different columns\par
+(e.g.\par
+house_data[0]['address']\par
+=> '18810 Densmore Ave N, Shoreline, WA 98133, USA' )\par
+df['address_list'] = df['address'].str.split(',')\par
+df['street'] = df['address_list'].apply(lambda col: col[0])\par
+df['city'] = df['address_list'].apply(lambda col: col[1])\par
+df['zipcode'] = df['address_list'].apply(lambda col: col[2])\par
+df['country'] = df['address_list'].apply(lambda col: col[3])\par
+\par
+# Separating the column into smaller columns\par
+(e.g.\par
+house_data[0]['rooms']\par
+=> Number of bathrooms: 1.5; Number of bedrooms: 3\par
+df['bathrooms'] = df['rooms'].str.extract('Number of bathrooms: (\\d.\\d+)', expand=True)\par
+df['bedrooms'] = df['rooms'].str.extract('Number of bedrooms: (\\d+)', expand=True)\par
+df.drop('rooms', axis=1, inplace=True)\par
+\par
+(e.g.\par
+house_data[0]['area.sqft_living/sqft_lot']\par
+=> sqft_living/sqft_lot=1340\\7912\par
+df['area.sqft_living/sqft_lot_list'] = df['area.sqft_living/sqft_lot'].str.split('=')                                                                       \par
+\par
+(e.g.\par
+house_data[0]['area.sqft_living/sqft_lot']\par
+=> sqft_living/sqft_lot, 1340\\ 7912\par
+df['area.sqft_living/sqft_lot_list1'] = df['area.sqft_living/sqft_lot_list'].apply(lambda col: col[1])\par
+df['area.sqft_living/sqft_lot_list2'] = df['area.sqft_living/sqft_lot_list1'].str.split('\\ ')\par
+df['area.sqft_living'] = df['area.sqft_living/sqft_lot_list2'].apply(lambda col: col[0])                                                                                        \par
+df['area.sqft_lot'] = df['area.sqft_living/sqft_lot_list2'].apply(lambda col: col[1]) \par
+\par
+# rename columns\par
+df.rename(index=str, columns=\{'area.sqft_living': 'sqft_living', 'area.sqft_lot': 'sqft_lot'\}, inplace=True)\par
+\par
+# remove '\\' from the values of the 'sqft_living' column\par
+df['sqft_living'] = df['sqft_living'].map(lambda x: x.strip('\\\\'))\par
+\par
+# Get the value\par
+df.get_value(idx, 'col_name')\par
+\par
+# Set the vaue\par
+idx = df[df['address'] == '4th Avenue'].index\par
+df.set_value(idx, 'id', '502')\par
+\par
+# Data joins/merge\par
+\lang1042 df = pd.merge(CCTV_SEOUL, POP, on='Gu') \lang18\par
+df_lots.merge(df_buildings, on=['lot_id', 'mun_id'], suffixes=('_lot', '_building'))\par
+df_all = pd.concat([df_first, df_second])                   //concatenate two data frames\par
+\lang1033 pd.concat([df, df2])              //concatenate rows\lang1042  ; remaining space is NaN   \lang1033\par
+pd.concat([df, df2], axis=1)    //\lang1042 concatenate columns; remaining space is NaN\par
+\par
+//concatenate rows (numpy)\par
+a = np.array([1,2,3])\par
+b = np.array([4,5,6])\par
+np.vstack((a,b))  \par
+=> array([[1,2,3], [4,5,6]])       \par
+\lang18\par
+//concatenate columns\par
+\lang1042 a = np.array([[1],[2],[3]])\par
+b = np.array([[4],[5],[6]])\par
+np.hstack((a,b))\par
+=> array([[1,4], [2,5], [3,6]])    \par
+ \par
+added = DataFrame.join(df1, df2)  //based on the row index values; columns increased\par
+added_datatable = added.append(added, ignore_index=True)  //doubled rows; row index listed accrodingly\par
+\lang18\par
+\par
+# Make a copy dataframe\par
+df2 = df.copy()\par
+\par
+\b 6. Others\par
+\b0\par
+# Default directory\par
+- pwd  \par
+\par
+\par
+}
+ 
